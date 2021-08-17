@@ -1,0 +1,22 @@
+123
+456
+789
+145
+123456789
+
+echo "This is correct for now not sure what comes next though"
+echo this is correct for now
+echo this
+this this this this
+
+MynameIsDAmien1234!@
+notGood!?
+whydoesntthisoneworkthen!?
+
+code to match echo statements with at least 3 words:
+
+
+
+code to match any examples of a good password
+
+[]
