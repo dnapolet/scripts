@@ -63,8 +63,6 @@
             echo
             echo
 
-            awk -F: '$7~/\/[b][a-z][a-z]\/[b][a-z][a-z]/' /etc/passwd |
-
             awk 'BEGIN {
 
                         

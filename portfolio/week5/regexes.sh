@@ -1,46 +1,111 @@
 #!/bin/bash
 
+#title           :regexes.sh
+#description     :This script stores functions that perform certain regexes.
+#author		     :Damien Napoletano
+#date            :22/08/2021
+#version         :1.2
+
 # A collection of grep statments in order to find the following:
 
+    # All sed statements.
 
+        function sed_statements(){
 
-# All sed statements:
+            grep -r "^sed"
 
-    grep -r "^sed"
+        }
+     
 
-# All lines that start with the letter 'm':
+    # All lines that start with the letter 'm'.
 
-    grep -r "^m"
+        function starting_m(){
 
-# All lines that contain three digit numbers
+            grep -r "^m" 
 
-    # The below matches three consecutive numbers, even if part of a larger number
+        }
+
     
-    grep -r "[0-9][0-9][0-9]"
+    # All lines that contain three digit numbers
 
-# This codes provides a match for exactly three characters on their own (I had to make a text file containing these strings as none were found otherwise)
+        # This regex matches three consecutive numbers, even if part of a larger number.
+    
+            function consecutive(){
 
-grep -r '^[0-9]\{3\}$'
+                grep -r "[0-9][0-9][0-9]"     
+
+            }
+    
+
+        # This codes provides a match for exactly three characters on their own (I had to make a text file containing these strings as none were found otherwise) 
+
+            function three_only(){
+
+                grep -r '^[0-9]\{3\}$' 
+
+            }
+                
+                
+        # All echo statements with at least three words
+
+            function echo_three_words(){
+
+                grep -r echo[[:space:]]\"*[a-zA-Z][[:alpha:]]*[[:space:]][a-zA-Z][[:alpha:]]*[[:space:]][a-zA-Z][[:alpha:]]*
+
+            }
+
+                 
+        # All lines that would make a good password
+
+            function password_conditions(){
+
+                while IFS='' read password || [ "$password" ]; do
+
+                    if [ ${#password} -ge 8 ]; then # If password length is greater than/equal to 8 characters, move onto the next test.
+        
+    
+                                onecapital=$(echo "$password" | grep [A-Z+])
+
+                                    if [ ${#onecapital} -ne 0 ]; then # If password contains at least one capital letter, move onto the next test.
+                    
+                
+                                            onenumber=$(echo "$password" | grep [0-9+])
+
+                                                if [ ${#onenumber} -ge 1 ]; then # If password contains at least one number, move onto the next test.
+        
+    
+                                                        onepunctuation=$(echo "$password" | grep [/?/!/#/@/$/%/*/-]) 
+
+                                                            if [ ${#onepunctuation} -ge 1 ]; then # If password contains at least one special character, move onto the next test.
+        
+                                                                echo -e "$password"- ${GREEN}Congratulations! This password has met all criteria. You have a strong password.${NORMAL}
+
+                                                                    else    # If password does not contain at least one special character, echo the following.
+                                                                        echo -e "$password"- ${RED}Getting stonger. Should contain at least one special character.${NORMAL} 
+    
+                                                            fi
+                    
+
+                                                    else # If password does not contain at least one number, echo the following.
+                                                        echo -e "$password"- ${RED}Getting stonger. Should contain at least one number.${NORMAL}
+                            
+                                                fi
 
 
-# All echo statements with at least three words
+                                        else # If password does not contain at least one capital letter, echo the following.
+                                            echo -e "$password"- ${RED}Getting stronger. Should contain at least one capital letter.${NORMAL}
+                    
+                                    fi
 
-grep -r echo[[:space:]]\"*[a-zA-Z][[:alpha:]]*[[:space:]][a-zA-Z][[:alpha:]]*[[:space:]][a-zA-Z][[:alpha:]]*
+
+                        else # If password length is not greater than or equal to 8 charcaters, echo the following.
+                            echo -e "$password"- ${RED}Weak password. Password length should be greater than or equal to 8 characters long.${NORMAL}
+                    fi
 
 
-# All lines that would make a good password
+                done < passwords.txt
 
-grep -r [A-Z+]
-grep -r [[:upper:]]+[[:punct:]]+[A-Za-z1-9]{8,}
-grep -r [A-Z+][[:punct:]+][A-Z,a-z]*
-grep -r [[A-Z+][[:punct:]+]
+            }
 
-One check at the time:
 
-# Check for 1 or more capital letters in the line
 
-grep [A-Z+] numbers.txt
-
-# Checks for lower case letters in the line
-
-grep [[:lower:]] numbers.txt
