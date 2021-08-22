@@ -1,23 +1,34 @@
 #!/bin/bash
 
-#get info about networking from the ifconfig command
 
-net_info="$(ifconfig)"
+#title           :IpInfo.sh
+#description     :This script will allow a user to copy an existing folder including its contents. It will be copied as a new folder with a newly assigned name.
+#author		     :Damien Napoletano
+#date            :20/08/2021
+#version         :1.2
 
-#parse out the ip address lines using sed
 
-addresses=$(echo "$net_info" | sed -n '/inet / {
+# Start of script   
 
-s/inet/IP Address:/
 
-s/netmask/\n\t\tSubnet Mask:/
+    net_info="$(ifconfig)" # Get info about networking from the ifconfig command.
 
-s/broadcast/\n\t\tBroadcast Address:/
+    # Parse out the ip address lines using sed.
 
-p
+        addresses=$(echo "$net_info" | sed -n '/inet / {
 
-}')
+            s/inet/IP Address:/
 
-#format output
+            s/netmask/\n\t\tSubnet Mask:/
 
-echo -e "IP addresses on this computer are:\n$addresses"
+            s/broadcast/\n\t\tBroadcast Address:/
+
+            p
+
+            }')
+
+
+    echo -e "IP addresses on this computer are:\n$addresses" # Format output.
+
+
+# End of script
