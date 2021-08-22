@@ -29,7 +29,7 @@
                 echo "Access Denied. Please try again." # else write an error message and exit with an error code of '1'.
                 exit 1;
             
-            fi
+        fi
 
 
 # End of script
