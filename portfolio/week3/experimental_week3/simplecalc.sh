@@ -28,7 +28,7 @@
 
     read selection
 
-#Below are the stored variables for a colour change performed with each result
+#Below are the stored variables for a colour change performed with each result below
 
     BLUE="\033[34m"
     GREEN="\033[32m"

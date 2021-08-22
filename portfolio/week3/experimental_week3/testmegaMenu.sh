@@ -25,7 +25,7 @@
     read -p "Please select and enter an option from the above choices: " selection
 
 
-while [ "$selection" -lt 8 ];
+while [[ $selection -lt 8 ]];
 
 do
 

@@ -2,7 +2,7 @@
 
 IFS=$'\n'
 
-for line in $(cat < filenames.txt)
+for line in $(cat < $1)
 
 do
     if [ -f "$line" ];
@@ -15,4 +15,4 @@ do
         echo "$line : I'm not sure what that is."
     fi
 
-done <filenames.txt
+done <"$1"
